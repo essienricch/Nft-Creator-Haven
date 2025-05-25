@@ -1,0 +1,22 @@
+{
+  "name": "hardhat-project",
+  "version": "1.0.0",
+  "description": "Token-powered NFT platform for creator rewards",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run scripts/deploy.js --network liskSepolia",
+    "test": "npx hardhat test",
+    "frontend": "cd frontend && npm start",
+    "build-frontend": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.24.0"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^4.9.6",
+    "dotenv": "^16.5.0",
+    "ethers": "^5.8.0"
+  }
+}
