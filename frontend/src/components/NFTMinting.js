@@ -17,10 +17,7 @@ const NFTMinting = () => {
   const [creatorReward, setCreatorReward] = useState('0');
 
   React.useEffect(() => {
-    loadCreatorReward();
-  }, [contract]);
-
-  const loadCreatorReward = async () => {
+      const loadCreatorReward = async () => {
     try {
       const reward = await getCreatorReward();
       setCreatorReward(reward);
@@ -28,6 +25,10 @@ const NFTMinting = () => {
       console.error('Error loading creator reward:', error);
     }
   };
+    loadCreatorReward();
+  }, [contract]);
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

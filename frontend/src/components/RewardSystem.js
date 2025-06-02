@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useContract } from '../hooks/useContract';
 import { useWallet } from '../hooks/useWallet';
 
@@ -18,9 +18,9 @@ const RewardSystem = () => {
       fetchStats();
       fetchMintHistory();
     }
-  }, [contract, account]);
+  }, [contract, account, fetchStats, fetchMintHistory]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       setLoading(true);
       const creatorStats = await getCreatorStats(account);
@@ -30,9 +30,9 @@ const RewardSystem = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [account]);
 
-  const fetchMintHistory = async () => {
+  const fetchMintHistory = useCallback(async () => {
     if (!contract) return;
 
     try {
@@ -53,7 +53,7 @@ const RewardSystem = () => {
     } catch (error) {
       console.error('Error fetching mint history:', error);
     }
-  };
+  }, [account]);
 
   const formatTokenAmount = (amount) => {
     const num = parseFloat(amount);

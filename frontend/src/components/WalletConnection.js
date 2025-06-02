@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useContract } from '../hooks/useContract';
 
 const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => {
@@ -10,9 +10,9 @@ const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => 
     if (isConnected && account) {
       fetchBalances();
     }
-  }, [isConnected, account]);
+  }, [isConnected, account, fetchBalances]);
 
-  const fetchBalances = async () => {
+  const fetchBalances = useCallback(async () => {
     try {
       // Get CRT token balance
       const crtBalance = await getTokenBalance(account);
@@ -30,7 +30,7 @@ const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => 
     } catch (error) {
       console.error('Error fetching balances:', error);
     }
-  };
+  }, [account])
 
   if (!isConnected) {
     return (
