@@ -24,7 +24,7 @@ const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => 
     } catch (error) {
       console.error('Error fetching balances:', error);
     }
-  }, [account])
+  }, [account, getTokenBalance])
   useEffect(() => {
     if (isConnected && account) {
       fetchBalances();

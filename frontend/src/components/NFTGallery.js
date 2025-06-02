@@ -7,13 +7,7 @@ const NFTGallery = () => {
   const [loading, setLoading] = useState(true);
   const [nftMetadata, setNftMetadata] = useState({});
 
-  useEffect(() => {
-    if (!isLoading) {
-      fetchNFTs();
-    }
-  }, [contract, isLoading, fetchNFTs]);
-
-  const fetchNFTs = useCallback(async () => {
+ const fetchNFTs = useCallback(async () => {
     try {
       setLoading(true);
       const nftList = await getAllNFTs();
@@ -27,6 +21,14 @@ const NFTGallery = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      fetchNFTs();
+    }
+  }, [contract, isLoading, fetchNFTs]);
+
+ 
 
   const fetchAllMetadata = async (nftList) => {
     const metadataPromises = nftList.map(async (nft) => {
