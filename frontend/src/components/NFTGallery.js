@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useContract } from '../hooks/useContract';
 
 const NFTGallery = () => {
@@ -8,7 +8,12 @@ const NFTGallery = () => {
   const [nftMetadata, setNftMetadata] = useState({});
 
   useEffect(() => {
-      const fetchNFTs = async () => {
+    if (!isLoading) {
+      fetchNFTs();
+    }
+  }, [contract, isLoading, fetchNFTs]);
+
+  const fetchNFTs = useCallback(async () => {
     try {
       setLoading(true);
       const nftList = await getAllNFTs();
@@ -21,13 +26,7 @@ const NFTGallery = () => {
     } finally {
       setLoading(false);
     }
-  };
-    if (!isLoading) {
-      fetchNFTs();
-    }
-  }, [contract, isLoading]);
-
-
+  }, []);
 
   const fetchAllMetadata = async (nftList) => {
     const metadataPromises = nftList.map(async (nft) => {

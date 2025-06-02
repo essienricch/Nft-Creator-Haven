@@ -6,12 +6,6 @@ const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => 
   const [tokenBalance, setTokenBalance] = useState('0');
   const [ethBalance, setEthBalance] = useState('0');
 
-  useEffect(() => {
-    if (isConnected && account) {
-      fetchBalances();
-    }
-  }, [isConnected, account, fetchBalances]);
-
   const fetchBalances = useCallback(async () => {
     try {
       // Get CRT token balance
@@ -31,6 +25,13 @@ const WalletConnection = ({ account, isConnected, onConnect, onDisconnect }) => 
       console.error('Error fetching balances:', error);
     }
   }, [account])
+  useEffect(() => {
+    if (isConnected && account) {
+      fetchBalances();
+    }
+  }, [isConnected, account, fetchBalances]);
+
+  
 
   if (!isConnected) {
     return (
